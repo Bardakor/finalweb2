@@ -13,18 +13,19 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         date: {
-            tyepe: Sequelize.DATE
+            type: Sequelize.date
         },
         time: {
-            tyepe: Sequelize.TIME
+            type: Sequelize.time
         },
         petsAllowed: {
             type: Sequelize.BOOLEAN
         },
         organizer: {
             type: Sequelize.STRING
-        }
+        },
         
-    });
-    return Event;
-};
+        
+        });
+        return Event;
+    };

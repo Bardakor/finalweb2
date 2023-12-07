@@ -1,18 +1,16 @@
 module.exports = {
-    HOST: "localhost", 
-    // or HOST: "localhost" if you installed mySQL locally
-    // localization your mySQL instance – in this example I use mySQL instance fro AGH cloud
-    
-    USER: "camille", 
-    /// for example for me it is rogus
-
-    PASSWORD: "your password",
-    DB: "events_db",
+    HOST: "localhost", // if you installed mySQL locally
+    // localization your mySQL instance – in this example I use mySQL instance from AGH cloud
+    USER: "root", 
+    PASSWORD: "",
+    DB: "your db name",
     dialect: "mysql",
+
     pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    },
-};
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+    }
+    };
+
