@@ -13,10 +13,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         date: {
-            type: Sequelize.date
+            type: Sequelize.DATE
         },
         time: {
-            type: Sequelize.time
+            type: Sequelize.TIME
         },
         petsAllowed: {
             type: Sequelize.BOOLEAN
