@@ -1,24 +1,38 @@
 const express = require("express");
 const cors = require("cors");
+
 const app = express();
-const db = require("./app/models");
 
 app.use(cors()); 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-db.sequelize.sync()
+// server works for any request 
+// or app.use(cors({ origin:http://localhost:8080 })); 
+//if you want to allow the handling of requests sentfrom the frontend app from the address localhost:8080.
 
-.then(() => {
-    console.log("Sync db.");
+// parse requests of content-type - application/json
+app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+// simple route
+app.get("/", (req, res) => {
+    res.json({ message: "Hello EFREI’s Student - Your Server lives!!!"});
+});
+
+app.listen(5000, () => {
+    console.log("Server has started!")
+});
+
+
+
+const db = require("./app/models");
+
+db.sequelize.sync().then(() => {
+        console.log("Sync db.");
 })
 .catch((err) => {
     console.log("Failed to sync db: " + err.message);
 });
+// // drop the table if it already exists
+// db.sequelize.sync({ force: true }).then(() => {
+// console.log("Drop and re-sync db.");
+// });
 
-app.get("/", (req, res) => {
-
-    res.json({ message: "Hello EFREI’s Student - Your Server lives!!!"});
-});
-app.listen(5000, () => {
-    console.log("Server has started!")
-})
