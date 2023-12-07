@@ -36,3 +36,7 @@ db.sequelize.sync().then(() => {
 // console.log("Drop and re-sync db.");
 // });
 
+const routes = require('./app/routes/eventRoutes'); //importing route
+
+// activate routingu
+routes(app);
