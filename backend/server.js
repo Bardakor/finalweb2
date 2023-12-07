@@ -20,3 +20,19 @@ app.get("/", (req, res) => {
 app.listen(5000, () => {
     console.log("Server has started!")
 });
+
+
+
+const db = require("./app/models");
+
+db.sequelize.sync().then(() => {
+        console.log("Sync db.");
+})
+.catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+});
+// // drop the table if it already exists
+// db.sequelize.sync({ force: true }).then(() => {
+// console.log("Drop and re-sync db.");
+// });
+
