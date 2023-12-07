@@ -1,7 +1,7 @@
 module.exports = {
     HOST: "localhost", // if you installed mySQL locally
     // localization your mySQL instance – in this example I use mySQL instance from AGH cloud
-    USER: "root", /// for example for me it is rogus
+    USER: "root", 
     PASSWORD: "",
     DB: "your db name",
     dialect: "mysql",
