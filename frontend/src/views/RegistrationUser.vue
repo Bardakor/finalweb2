@@ -22,9 +22,9 @@ import RegistrationService from '../services/RegistrationService.js';
 
 export default {
     name: 'RegistrationUser',
-    data(){
+    data() {
         return {
-            user:{
+            user: {
                 username: '',
                 email: '',
                 password: '',
@@ -32,11 +32,11 @@ export default {
         };
     },
     methods: {
-        submitRegisterForm(){
+        submitRegisterForm() {
 
             this.loading = true;
             RegistrationService.addRegistration(this.user).then(() => {
-                this.user={
+                this.user = {
                     username: '',
                     email: '',
                     password: '',
@@ -46,3 +46,60 @@ export default {
     },
 };
 </script>
+
+<style>
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid navy;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: navy;
+    text-align: center;
+}
+
+label {
+    color: #2c3e50;
+    /* Deep navy blue for text */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    /* Navy blue background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #003366;
+    /* Darker shade for hover effect */
+}
+
+.submit-button:disabled {
+    background-color: #cccccc;
+    /* Light gray when disabled */
+    cursor: default;
+}</style>
+
