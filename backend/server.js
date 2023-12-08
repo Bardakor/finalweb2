@@ -21,8 +21,6 @@ app.listen(5000, () => {
     console.log("Server has started!")
 });
 
-
-
 const db = require("./app/models");
 
 db.sequelize.sync({ force: true }).then(() => {
@@ -33,5 +31,25 @@ db.sequelize.sync({ force: true }).then(() => {
 
 const routes = require('./app/routes/eventRoutes'); //importing route
 
+
 // activate routingu
 routes(app);
+
+const routesAuth = require('./app/routes/authRoutes');
+
+routesAuth(app);
+
+const Role = db.role;
+
+function initial() {
+    Role.create({
+        id: 1,
+        name: "user"
+    });
+    Role.create({
+        id: 2,
+        name: "admin"
+    });
+}
+
+
