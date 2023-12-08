@@ -4,7 +4,7 @@ import EventDetails from '../views/EventDetails.vue';
 import EditEvent from '../components/EditEvent.vue'
 import AddEvent from '../views/AddEvent.vue';
 import AboutView from '../views/AboutView.vue';
-
+import RegistrationUser from '../views/RegistrationUser.vue';
 
 const routes = [
   {
@@ -35,6 +35,12 @@ const routes = [
     props: true,
     component: EditEvent,
   },
+  {
+    path: '/auth/register',
+    name: 'RegistrationUser',
+    props: true,
+    component: RegistrationUser,
+  }
 ];
 
 const router = createRouter({
