@@ -15,7 +15,6 @@
 
 <script>
 import LoginService from '../services/LoginService.js';
-import jwt_decode from 'jwt-decode';
 
 export default {
     name: 'LoginUser',
@@ -33,11 +32,10 @@ export default {
 
             LoginService.addLogin(this.user)
                 .then(response => {
-                    let token = response.data.token;
-
-                    let decodedToken = jwt_decode(token);
-
-                    localStorage.setItem("user", JSON.stringify(decodedToken));
+                    let token = response.data.accessToken;
+                    console.log(response.data);
+                    localStorage.setItem("user", token);
+                    this.$router.push({name: 'EventList'});
                 })
                 .catch(error => {
                     console.error('Erreur lors de l\'inscription :', error);

@@ -5,6 +5,8 @@ import EditEvent from '../components/EditEvent.vue'
 import AddEvent from '../views/AddEvent.vue';
 import AboutView from '../views/AboutView.vue';
 import RegistrationUser from '../views/RegistrationUser.vue';
+import LoginUser from '../views/LoginUser.vue';
+
 
 const routes = [
   {
@@ -40,6 +42,12 @@ const routes = [
     name: 'RegistrationUser',
     props: true,
     component: RegistrationUser,
+  },
+  {
+    path: '/auth/login',
+    name: 'LoginUser',
+    props: true,
+    component: LoginUser,
   }
 ];
 
