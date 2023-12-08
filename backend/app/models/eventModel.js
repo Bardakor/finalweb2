@@ -24,6 +24,16 @@ module.exports = (sequelize, Sequelize) => {
         organizer: {
             type: Sequelize.STRING
         },
+        createdAt: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.fn('now')
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.fn('now')
+        },
         
     });
     return Event;

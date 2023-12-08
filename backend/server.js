@@ -25,16 +25,11 @@ app.listen(5000, () => {
 
 const db = require("./app/models");
 
-db.sequelize.sync().then(() => {
-        console.log("Sync db.");
-})
-.catch((err) => {
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Sync db.");
+  }).catch((err) => {
     console.log("Failed to sync db: " + err.message);
-});
-// // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-// console.log("Drop and re-sync db.");
-// });
+  });
 
 const routes = require('./app/routes/eventRoutes'); //importing route
 
