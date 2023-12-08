@@ -4,7 +4,7 @@
     <EventCard v-for="event in events" :key="event.id" :event="event" v-on="{ deleteCardFromChild: deleteEventInList }" />
   </div>
   <button @click="getUserDetails">Get User Details</button>
-  <button @click="userLogOut">Get User Details</button>
+  <button @click="userLogOut">Log Out</button>
 
 </template>
 
@@ -49,7 +49,7 @@ export default {
     },
     userLogOut(){
       localStorage.removeItem("user");
-      this.$router.push("/login");
+      this.$router.push({name: "LoginUser"});
     }
   },
 };

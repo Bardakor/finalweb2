@@ -1,11 +1,24 @@
 <template>
-  <nav>
-    <router-link :to="{name: 'EventList'}">Events</router-link> |
-    <router-link :to="{name: 'AboutView'}">About</router-link> |
-    <router-link :to="{name: 'AddEvent'}">Create Event</router-link>
-  </nav>
+  <NavBar/>
   <router-view/>
 </template>
+
+<script>
+import NavBar from './components/NavBar.vue'
+
+export default {
+    name: 'AppMain.vue',
+    components: {
+        NavBar,
+    },
+    data(){
+        return {
+
+        };
+    },
+
+}
+</script>
 
 <style>
 #app {

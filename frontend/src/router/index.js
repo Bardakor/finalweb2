@@ -3,7 +3,6 @@ import EventList from '../views/EventList.vue';
 import EventDetails from '../views/EventDetails.vue';
 import EditEvent from '../components/EditEvent.vue'
 import AddEvent from '../views/AddEvent.vue';
-import AboutView from '../views/AboutView.vue';
 import RegistrationUser from '../views/RegistrationUser.vue';
 import LoginUser from '../views/LoginUser.vue';
 
@@ -13,11 +12,6 @@ const routes = [
     path: '/',
     name: 'EventList',
     component: EventList,
-  },
-  {
-    path: '/about',
-    name: 'AboutView',
-    component: AboutView,
   },
   {
     path: '/event/:id',
@@ -56,5 +50,34 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem('jwt') == null) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      let user = JSON.parse(localStorage.getItem('user'))
+      if (to.matched.some(record => record.meta.is_admin)) {
+        if (user.is_admin == 1) {
+          next()
+        } else {
+          next({ name: 'userboard' })
+        }
+      } else {
+        next()
+      }
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (localStorage.getItem('jwt') == null) {
+      next()
+    } else {
+      next({ name: 'userboard' })
+    }
+  } else {
+    next()
+  }
+});
+
 export default router;
-  

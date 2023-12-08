@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="submitLoginForm">
-        <h1>Register you :</h1>
+        <h1>Login you :</h1>
         <label for="username">Username</label>
         <br>
         <input type="text" name="username" placeholder="username" v-model="user.username" required>
@@ -9,7 +9,7 @@
         <br>
         <input type="text" name="password" placeholder="password" v-model="user.password" required>
         <br>
-        <button class="submit-button" type="submit" :disabled="loading">Register</button>
+        <button class="submit-button" type="submit" :disabled="loading">Login</button>
     </form>
 </template>
 
