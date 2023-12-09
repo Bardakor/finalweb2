@@ -60,7 +60,7 @@ exports.login = (req, res) => {
                 return res.status(401).send({ accessToken: null, message: "Invalid Password!" });
             }
 
-            var token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 }); // 24 hours
+            var token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 });
             var authorities = [];
 
             user.getRoles().then(roles => {
