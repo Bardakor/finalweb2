@@ -3,7 +3,7 @@ module.exports = {
     // localization your mySQL instance – in this example I use mySQL instance from AGH cloud
     USER: "root", 
     PASSWORD: "",
-    DB: "backend2",
+    DB: "events_db",
     dialect: "mysql",
 
     pool: {

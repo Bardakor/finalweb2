@@ -2,19 +2,25 @@
     <nav>
         <router-link :to="{ name: 'EventList' }">Events</router-link> |
         <router-link :to="{ name: 'AddEvent' }">Create Event</router-link>
+        <router-link v-if="isAuth" :to="{ name: 'RegistrationUser' }">Register</router-link>
+        <router-link v-if="isAuth" :to="{ name: 'LoginUser' }">Longin</router-link>
+
+
     </nav>
 </template>
 
 <script>
 export default {
     name: 'NavBar',
-    components: {
-
-    },
     data() {
         return {
-
+            // isAuth: this.$store.state.isAuth,
         };
+    },
+    computed: {
+        isAut() {
+            return this.$store.state.isAuth;
+        },
     },
 
 }
@@ -63,7 +69,8 @@ router-link.router-link-exact-active {
     /* Thicker white underline for the active link */
     transform: scale(1.05);
     /* Slightly enlarge the active link */
-}</style>
+}
+</style>
 
 
 

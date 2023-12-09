@@ -5,6 +5,7 @@ import EditEvent from '../components/EditEvent.vue'
 import AddEvent from '../views/AddEvent.vue';
 import RegistrationUser from '../views/RegistrationUser.vue';
 import LoginUser from '../views/LoginUser.vue';
+import VueJwtDecode from "vue-jwt-decode";
 
 
 const routes = [
@@ -12,36 +13,54 @@ const routes = [
     path: '/',
     name: 'EventList',
     component: EventList,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/event/:id',
     name: 'EventDetails',
     props: true,
     component: EventDetails,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/add',
     name: 'AddEvent',
     props: true,
     component: AddEvent,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/event/:id/edit',
     name: 'EditEvent',
     props: true,
     component: EditEvent,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/auth/register',
     name: 'RegistrationUser',
     props: true,
     component: RegistrationUser,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/auth/login',
     name: 'LoginUser',
     props: true,
     component: LoginUser,
+    meta: {
+      requiresAuth: false,
+    },
   }
 ];
 
@@ -50,34 +69,31 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') == null) {
-      next({
-        path: '/login',
-        params: { nextUrl: to.fullPath }
-      })
-    } else {
-      let user = JSON.parse(localStorage.getItem('user'))
-      if (to.matched.some(record => record.meta.is_admin)) {
-        if (user.is_admin == 1) {
-          next()
-        } else {
-          next({ name: 'userboard' })
-        }
-      } else {
-        next()
-      }
-    }
-  } else if (to.matched.some(record => record.meta.guest)) {
-    if (localStorage.getItem('jwt') == null) {
-      next()
-    } else {
-      next({ name: 'userboard' })
-    }
-  } else {
-    next()
+function isAuthenticated(store) {
+  const token = localStorage.getItem('user');
+  if (token) {
+    const decodedToken = VueJwtDecode.decode(token);
+    const currentTime = Date.now() / 1000;
+    const isValid = decodedToken.exp > currentTime;
+    //store.commit('editIsAuth', isValid);
+    return isValid;
   }
-});
+  //store.commit('editIsAuth', false);
+  console.log(store.state.isAuth);
+  return false;
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (isAuthenticated(store)) {
+      next()
+      return
+    }
+    next('/auth/login')
+  }
+  next()
+})
+
+
 
 export default router;

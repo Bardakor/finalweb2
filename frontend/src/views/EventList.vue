@@ -9,8 +9,8 @@
 
 <script>
 // @ is an alias to /src
-import EventCard from '@/components/EventCard.vue'
-import EventService from '../services/EventService.js'
+import EventCard from '@/components/EventCard.vue';
+import EventService from '../services/EventService.js';
 import VueJwtDecode from "vue-jwt-decode";
 
 export default {
@@ -110,5 +110,3 @@ input[type="text"] {
   cursor: default;
 }
 </style>
-
-
