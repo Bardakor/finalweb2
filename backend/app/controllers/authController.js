@@ -8,13 +8,6 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-function initializeDefaultRoles() {
-    Role.findOrCreate({ where: { name: 'user' }, defaults: { name: 'user' } })
-        .then(() => console.log("Default 'user' role added"))
-        .catch(err => console.error("Error initializing default roles", err));
-    // Add other default roles as needed
-}
-
 exports.register = (req, res) => {
     User.create({
         username: req.body.username,
@@ -51,6 +44,8 @@ exports.register = (req, res) => {
         });
 };
 
+
+
 exports.login = (req, res) => {
     User.findOne({
         where: { username: req.body.username }
@@ -67,7 +62,10 @@ exports.login = (req, res) => {
 
             var token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 }); // 24 hours
             var authorities = [];
+
             user.getRoles().then(roles => {
+                console.log("roles:")
+                console.log(roles)
                 roles.forEach(role => {
                     authorities.push("ROLE_" + role.name.toUpperCase());
                 });
@@ -86,5 +84,4 @@ exports.login = (req, res) => {
         });
 };
 
-// Call this somewhere in your initialization logic
-initializeDefaultRoles();
+

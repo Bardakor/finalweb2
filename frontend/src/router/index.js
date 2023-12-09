@@ -71,7 +71,7 @@ const router = createRouter({
 
 
 async function isAuthenticated() {
-  const { default: store } = await import('../main.js'); // Adjust the path as necessary
+  const { default: store } = await import('../main.js');
   const token = localStorage.getItem('user');
   if (token) {
     const decodedToken = VueJwtDecode.decode(token);

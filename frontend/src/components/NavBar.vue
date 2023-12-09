@@ -3,8 +3,8 @@
         <router-link :to="{ name: 'EventList' }">Events</router-link> |
         <router-link :to="{ name: 'AddEvent' }">Create Event</router-link>
         <router-link v-if="!isAuth" :to="{ name: 'RegistrationUser' }">Register</router-link>
-        <router-link v-if="!isAuth" :to="{ name: 'LoginUser' }">Longin</router-link>
-
+        <router-link v-if="!isAuth" :to="{ name: 'LoginUser' }">Login</router-link>
+        <button v-if="isAuth" @click="userLogOut">Log Out</button>
 
     </nav>
 </template>
@@ -17,15 +17,20 @@ export default {
             isAuth: null,
         };
     },
-    created(){
-        this.isAuth= this.$store.state.isAuth;
+    created() {
+        this.isAuth = this.$store.state.isAuth;
     },
     watch: {
-    // Utilisation d'un watcher pour détecter les changements dans $store.state.isAuth
-    '$store.state.isAuth'(newIsAuth) {
-      this.isAuth = newIsAuth;
+        '$store.state.isAuth'(newIsAuth) {
+            this.isAuth = newIsAuth;
+        },
     },
-  },
+    methods: {
+        userLogOut() {
+            localStorage.removeItem("user");
+            this.$router.push({ name: "LoginUser" });
+        }
+    }
 
 }
 </script>
