@@ -68,28 +68,36 @@ const router = createRouter({
   routes
 });
 
-function isAuthenticated() {
+
+
+async function isAuthenticated() {
+  const { default: store } = await import('../main.js'); // Adjust the path as necessary
+
   const token = localStorage.getItem('user');
   if (token) {
     const decodedToken = VueJwtDecode.decode(token);
     const currentTime = Date.now() / 1000;
     const isValid = decodedToken.exp > currentTime;
+
+    // Example usage of store
+    console.log(store.state.isAuth);
+
     return isValid;
   }
   return false;
 }
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (isAuthenticated()) {
-      next()
-      return
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const auth = await isAuthenticated();
+    if (auth) {
+      next();
+      return;
     }
-    next('/auth/login')
+    next('/auth/login');
+  } else {
+    next();
   }
-  next()
-})
-
-
+});
 
 export default router;
