@@ -7,7 +7,6 @@ import RegistrationUser from '../views/RegistrationUser.vue';
 import LoginUser from '../views/LoginUser.vue';
 import VueJwtDecode from "vue-jwt-decode";
 
-
 const routes = [
   {
     path: '/',
@@ -69,23 +68,20 @@ const router = createRouter({
   routes
 });
 
-function isAuthenticated(store) {
+function isAuthenticated() {
   const token = localStorage.getItem('user');
   if (token) {
     const decodedToken = VueJwtDecode.decode(token);
     const currentTime = Date.now() / 1000;
     const isValid = decodedToken.exp > currentTime;
-    //store.commit('editIsAuth', isValid);
     return isValid;
   }
-  //store.commit('editIsAuth', false);
-  console.log(store.state.isAuth);
   return false;
 }
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (isAuthenticated(store)) {
+    if (isAuthenticated()) {
       next()
       return
     }
