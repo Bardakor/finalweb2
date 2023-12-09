@@ -3,8 +3,8 @@
         <h1>{{ event.title }}</h1>
         <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
         <p>{{ event.description }}</p>
-        <div><router-link v-if="event" class="edit-button" :to="{ name: 'EditEvent', params: { id: event.id } }">Edit
-                Event</router-link></div>
+        <h5>{{ event.organizer }}</h5>
+        <router-link v-if="event.organizer === username || role === 'ROLE_ADMIN'" class="edit-button" :to="{ name: 'EditEvent', params: { id: event.id } }">Edit Event</router-link>
     </div>
 </template>
 
@@ -15,12 +15,20 @@ export default {
     data() {
         return {
             event: null,
+            username: null,
+            role: null,
         }
     },
     props: {
         id: String,
     },
     created() {
+        this.username = localStorage.getItem('username');
+        console.log(this.username);
+
+        this.role = localStorage.getItem('role');
+        console.log(this.role);
+
         EventService.getEvent(this.id).then(response => {
             this.$store.commit('editEvent', response.data);
             this.event = this.$store.state.event;

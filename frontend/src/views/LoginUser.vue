@@ -32,9 +32,18 @@ export default {
 
             LoginService.addLogin(this.user)
                 .then(response => {
+
+
                     let token = response.data.accessToken;
                     console.log(response.data);
+                    console.log('aaa')
                     localStorage.setItem("user", token);
+                    
+                    localStorage.setItem("username", response.data.username);
+                    localStorage.setItem("role", response.data.roles[0]);
+                    console.log(localStorage.getItem("identity"));
+                    console.log(localStorage.getItem("role"));
+
                     this.$router.push({ name: 'EventList' });
                 })
                 .catch(error => {

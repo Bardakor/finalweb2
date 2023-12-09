@@ -24,6 +24,7 @@ app.listen(5000, () => {
 const db = require("./app/models");
 
 db.sequelize.sync({ force: true }).then(() => {
+    initial();
     console.log("Sync db.");
   }).catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -39,6 +40,8 @@ const routesAuth = require('./app/routes/authRoutes');
 
 routesAuth(app);
 
+
+
 const Role = db.role;
 
 function initial() {
@@ -51,5 +54,3 @@ function initial() {
         name: "admin"
     });
 }
-
-

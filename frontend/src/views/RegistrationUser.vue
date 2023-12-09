@@ -28,20 +28,28 @@ export default {
                 username: '',
                 email: '',
                 password: '',
-            }
+            },
+            errorMessage: null,
         };
     },
     methods: {
         submitRegisterForm() {
-
             this.loading = true;
-            RegistrationService.addRegistration(this.user).then(() => {
-                this.user = {
-                    username: '',
-                    email: '',
-                    password: '',
-                };
-            }).catch(error => console.log(error)).finally(() => this.loading = false);
+            RegistrationService.addRegistration(this.user)
+                .then(response => {
+                    let token = response.data.accessToken;
+                    console.log(response.data);
+                    localStorage.setItem("user", token);
+                    this.$router.push({ name: 'EventList' });
+                }).catch(error => {
+                    console.log(error)
+                    if (error.response && error.response.data) {
+                        this.errorMessage = error.response.data.message;
+                    } else {
+                        this.errorMessage = 'An error occurred.';
+                    }
+                    console.log(this.errorMessage)
+                }).finally(() => this.loading = false);
         },
     },
 };
@@ -101,5 +109,6 @@ input[type="text"] {
     background-color: #cccccc;
     /* Light gray when disabled */
     cursor: default;
-}</style>
+}
+</style>
 

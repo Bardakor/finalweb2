@@ -1,8 +1,12 @@
 module.exports = function(app) {
-    var auth = require('../controllers/authController.js');
+    const auth = require('../controllers/authController.js');
+    const { verifySignUp } = require('../middleware'); // Assurez-vous que le chemin d'accès est correct
 
-    app.post('/auth/register', auth.register);
+    app.post('/auth/register', 
+        verifySignUp.checkDuplicateUsernameOrEmail, 
+        verifySignUp.checkRolesExisted, 
+        auth.register
+    );
 
     app.post('/auth/login', auth.login);
-
 }

@@ -4,6 +4,8 @@
         <router-link :to="{ name: 'AddEvent' }">Create Event</router-link>
         <router-link v-if="!isAuth" :to="{ name: 'RegistrationUser' }">Register</router-link>
         <router-link v-if="!isAuth" :to="{ name: 'LoginUser' }">Login</router-link>
+        <router-link  :to="{ name: 'AdminView' }">ADMIN</router-link>
+
         <button v-if="isAuth" @click="userLogOut">Log Out</button>
 
     </nav>
@@ -15,10 +17,12 @@ export default {
     data() {
         return {
             isAuth: null,
+            role: null,
         };
     },
     created() {
         this.isAuth = this.$store.state.isAuth;
+        this.role = localStorage.getItem('role');
     },
     watch: {
         '$store.state.isAuth'(newIsAuth) {

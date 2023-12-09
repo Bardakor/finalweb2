@@ -48,7 +48,7 @@ export default {
                 date: '',
                 time: '',
                 petsAllowed: true,
-                organizer: 'Camille Bordes'
+                organizer: this.$store.state.identity.username,
             },
             loading: false,
         };
@@ -71,7 +71,7 @@ export default {
                     date: '',
                     time: '',
                     petsAllowed: true,
-                    organizer: 'Camille Bordes'
+                    organizer: this.$store.state.identity.username,
                 };
             }).catch(error => console.log(error)).finally(() => this.loading = false);
         },

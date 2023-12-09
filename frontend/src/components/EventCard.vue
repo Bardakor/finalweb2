@@ -3,7 +3,7 @@
         <div class="event-card">
             <span>@{{ event.time }} on {{ event.date }}</span>
             <h4>{{ event.title }}</h4>
-            <button @click.prevent="deleteCard">delete</button>
+            <button v-if="isAuth && (username === event.organizer || role === 'ROLE_ADMIN')" @click.prevent="deleteCard">delete</button>
         </div>
     </router-link>
 </template>
@@ -13,6 +13,23 @@ import EventService from '../services/EventService.js';
 
 export default {
     name: 'EventCard',
+    data(){
+        return{
+            isAuth: null,
+            username: null,
+            role: null,
+        }
+    },
+    created() {
+        this.isAuth = this.$store.state.isAuth;
+        this.username = localStorage.getItem('username');
+        this.role = localStorage.getItem('role');
+    },
+    watch: {
+        '$store.state.isAuth'(newIsAuth) {
+            this.isAuth = newIsAuth;
+        },
+    },
     props: {
         event: {
             type: Object,
