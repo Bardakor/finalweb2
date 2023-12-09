@@ -87,8 +87,8 @@ async function isAuthenticated() {
 }
 
 router.beforeEach(async (to, from, next) => {
+  const auth = await isAuthenticated();
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const auth = await isAuthenticated();
     if (auth) {
       next();
       return;
