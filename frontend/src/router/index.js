@@ -72,18 +72,17 @@ const router = createRouter({
 
 async function isAuthenticated() {
   const { default: store } = await import('../main.js'); // Adjust the path as necessary
-
   const token = localStorage.getItem('user');
   if (token) {
     const decodedToken = VueJwtDecode.decode(token);
     const currentTime = Date.now() / 1000;
     const isValid = decodedToken.exp > currentTime;
 
-    // Example usage of store
-    console.log(store.state.isAuth);
-
+    store.commit('editIsAuth', isValid);
+    console.log(store.state.isAuth)
     return isValid;
   }
+  store.commit('editIsAuth', false);
   return false;
 }
 
