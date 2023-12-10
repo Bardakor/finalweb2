@@ -12,7 +12,6 @@ var bcrypt = require("bcryptjs");
 
 
 exports.register = (req, res) => {
-    console.log("registerrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
     User.create({
         username: req.body.username,
         email: req.body.email,
@@ -68,8 +67,6 @@ exports.login = (req, res) => {
             var authorities = [];
 
             user.getRoles().then(roles => {
-                console.log("roles:")
-                console.log(roles)
                 roles.forEach(role => {
                     authorities.push("ROLE_" + role.name.toUpperCase());
                 });
