@@ -89,16 +89,18 @@ input[type="text"] {
 
 .submit-button:disabled {
   background-color: #cccccc;
- 
+  /* Light gray when disabled */
   cursor: default;
 }
 
 .events {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
-  gap: 40px; 
+  gap: 40px 20px; /* Adjust horizontal gap */
   margin: 0 auto; 
   max-width: 1200px; 
+  justify-items: center; /* Center-align items */
 }
+
 
 </style>
