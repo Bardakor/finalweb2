@@ -9,6 +9,8 @@
         <br>
         <input type="text" name="password" placeholder="password" v-model="user.password" required>
         <br>
+        <p class="error-p">{{ errorMessage }}</p>
+        <br>
         <button class="submit-button" type="submit" :disabled="loading">Login</button>
     </form>
 </template>
@@ -23,7 +25,8 @@ export default {
             user: {
                 username: '',
                 password: '',
-            }
+            },
+            errorMessage: null,
         };
     },
     methods: {
@@ -32,24 +35,20 @@ export default {
 
             LoginService.addLogin(this.user)
                 .then(response => {
-
-
                     let token = response.data.accessToken;
-                    console.log(response.data);
-                    console.log('aaa')
                     localStorage.setItem("user", token);
-                    
                     localStorage.setItem("username", response.data.username);
                     localStorage.setItem("role", response.data.roles[0]);
-                    console.log(localStorage.getItem("identity"));
-                    console.log(localStorage.getItem("role"));
-
                     this.$router.push({ name: 'EventList' });
                 })
                 .catch(error => {
-                    console.error('Erreur lors de l\'inscription :', error);
-                })
-                .finally(() => this.loading = false);
+                    console.log(error)
+                    if (error.response && error.response.data) {
+                        this.errorMessage = error.response.data.message;
+                    } else {
+                        this.errorMessage = 'An error occurred.';
+                    }
+                }).finally(() => this.loading = false);
         },
     },
 };
@@ -110,5 +109,11 @@ input[type="text"] {
     /* Light gray when disabled */
     cursor: default;
 }
+
+
+.error-p{
+    color: red;
+}
+
 </style>
 

@@ -13,6 +13,8 @@
         <br>
         <input type="text" name="password" placeholder="password" v-model="user.password" required>
         <br>
+        <p class="error-p">{{ errorMessage }}</p>
+        <br>
         <button class="submit-button" type="submit" :disabled="loading">Register</button>
     </form>
 </template>
@@ -38,8 +40,9 @@ export default {
             RegistrationService.addRegistration(this.user)
                 .then(response => {
                     let token = response.data.accessToken;
-                    console.log(response.data);
                     localStorage.setItem("user", token);
+                    localStorage.setItem("username", response.data.username);
+                    localStorage.setItem("role", response.data.roles[0]);
                     this.$router.push({ name: 'EventList' });
                 }).catch(error => {
                     console.log(error)
@@ -48,7 +51,6 @@ export default {
                     } else {
                         this.errorMessage = 'An error occurred.';
                     }
-                    console.log(this.errorMessage)
                 }).finally(() => this.loading = false);
         },
     },
@@ -110,5 +112,11 @@ input[type="text"] {
     /* Light gray when disabled */
     cursor: default;
 }
+
+.error-p{
+    color: red;
+}
+
+
 </style>
 
