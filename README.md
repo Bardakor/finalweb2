@@ -3,7 +3,7 @@
 
 # First step
 
-Import the file "events.mysql" into your newly created database in PHPmyAdmin
+Import the file "events_db.mysql" into your newly created database in PHPmyAdmin
 
 ## User Information
 
