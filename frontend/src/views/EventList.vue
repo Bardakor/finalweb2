@@ -92,4 +92,15 @@ input[type="text"] {
   /* Light gray when disabled */
   cursor: default;
 }
+
+.events {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 40px 20px; /* Adjust horizontal gap */
+  margin: 0 auto; 
+  max-width: 1200px; 
+  justify-items: center; /* Center-align items */
+}
+
+
 </style>
